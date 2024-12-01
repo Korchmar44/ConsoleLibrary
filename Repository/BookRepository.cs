@@ -2,52 +2,68 @@
 
 namespace ConsoleLibrary.Repository
 {
-    public class BookRepository
+    public class BookRepository: VirtualReository<Book>
     {
         ConsoleLibraryContext consoleLibraryContext;
         public Book Book {  get; set; }
         public BookRepository(Book book) 
         { 
             Book = book;        
-            consoleLibraryContext = new ConsoleLibraryContext();
         }
 
-        public List<Book> SelectAll()
+        public override List<Book> SelectAll()
         {
-            var result = consoleLibraryContext.Books.ToList();
-            return result;
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                var result = consoleLibraryContext.Books.ToList();
+                return result;
+            }
         }
 
-        public Book Select(int id)
+        public override Book Select(int id)
         {
-            var result = consoleLibraryContext.Books.Where(book => book.Id == id).FirstOrDefault();
-            return result;
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                var result = consoleLibraryContext.Books.Where(book => book.Id == id).FirstOrDefault();
+                return result;
+            }
         }
 
-        public void Add(Book book) 
+        public override void Add(Book entity)
         {
-            consoleLibraryContext.Books.Add(book);     
-            consoleLibraryContext.SaveChanges();
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                consoleLibraryContext.Books.Add(entity);
+                consoleLibraryContext.SaveChanges();
+            }
         }
-        public void Update(Book book)
+
+        public override void Update(Book entity)
         {
-            consoleLibraryContext.Books.Update(book);
-            consoleLibraryContext.SaveChanges();
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                consoleLibraryContext.Books.Update(entity);
+                consoleLibraryContext.SaveChanges();
+            }
         }
 
-        public void Delete(Book book)
-        { 
-            consoleLibraryContext.Remove(book);
-            consoleLibraryContext.SaveChanges();
-        }
-
-        public void UpdateById(int id, int newYear)
+        public override void Delete(Book entity)
         {
-            var result = consoleLibraryContext.Books.Where(book => book.Id == id).FirstOrDefault();
-            result.Year = newYear;
-            consoleLibraryContext.SaveChanges();
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                consoleLibraryContext.Remove(entity);
+                consoleLibraryContext.SaveChanges();
+            }
         }
 
-
+        public override void UpdateById(int id, int newYear)
+        {
+            using (consoleLibraryContext = new ConsoleLibraryContext())
+            {
+                var result = consoleLibraryContext.Books.Where(book => book.Id == id).FirstOrDefault();
+                result.Year = newYear;
+                consoleLibraryContext.SaveChanges();
+            }
+        }
     }
 }
