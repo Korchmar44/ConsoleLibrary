@@ -2,5 +2,5 @@
 
 using (var db = new ConsoleLibraryContext())
 {
-    Console.WriteLine("БД создана");
+    Console.WriteLine("Что-то сделано");
 }
