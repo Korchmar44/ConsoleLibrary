@@ -9,12 +9,7 @@ namespace ConsoleLibrary
         public DbSet<Author> Authors { get; set; }
         public DbSet<GenreBook> GenreBooks { get; set; }
 
-        public ConsoleLibraryContext()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
-        }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=ASROCK-DESKTOP; Database=library;Trusted_Connection=Yes;TrustServerCertificate=true;");
