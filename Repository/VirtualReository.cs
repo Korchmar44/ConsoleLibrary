@@ -17,5 +17,7 @@ namespace ConsoleLibrary.Repository
         public virtual void UpdateById(int id, int prop) { }
 
         public virtual void UpdateById(int id, string prop) { }
+
+        public virtual void UpdateById(int id, List<string> prop) { }
     }
 }
