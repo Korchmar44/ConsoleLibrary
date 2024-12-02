@@ -7,5 +7,6 @@
         public string? LastName { get; set; }
 
         public List<GenreBook>GenreBooks { get; set; }
+        public List<Book>Books { get; set; }
     }
 }
